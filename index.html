@@ -221,10 +221,10 @@ let dragLon;
 
 let glon0;
 
-canvas.onmousedown = (e) => {
+function dragStart(e) {
 	const { lat, lon } = inv(
-		(e.offsetX - R) / R,
-		(R - e.offsetY) / R,
+		(e.pageX - R) / R,
+		(R - e.pageY) / R,
 		slat0,
 		clat0,
 		glon0
@@ -246,14 +246,15 @@ canvas.onmousedown = (e) => {
 	gc.stroke();
 
 	dragging = true;
-};
+	e.preventDefault();
+}
 
-canvas.onmousemove = (e) => {
+function dragMove(e) {
 	if(!dragging) return;
 
 	const { lat0, lon0, flippable } = inv0(
-		(e.offsetX - R) / R,
-		(R - e.offsetY) / R,
+		(e.pageX - R) / R,
+		(R - e.pageY) / R,
 		dragLat * Math.PI / 180,
 		dragLon * Math.PI / 180
 	);
@@ -263,11 +264,21 @@ canvas.onmousemove = (e) => {
 	render(lat0, lon0);
 
 	glon0 = lon0;
-};
+	e.preventDefault();
+}
 
-canvas.onmouseup = (e) => {
+function dragEnd(e) {
 	dragging = false;
-};
+	e.preventDefault();
+}
+
+canvas.onmousedown = dragStart;
+canvas.onmousemove = dragMove;
+canvas.onmouseup = dragEnd;
+
+canvas.touchstart = dragStart;
+canvas.touchmove = dragMove;
+canvas.touchend = dragEnd;
 
 glon0 = 25 * Math.PI / 180;
 
