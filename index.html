@@ -222,6 +222,8 @@ let dragLon;
 let glon0;
 
 function dragStart(e) {
+	e = e.originalEvent.touches ? originalEvent.touches[0] : e;
+
 	const { lat, lon } = inv(
 		(e.pageX - R) / R,
 		(R - e.pageY) / R,
@@ -251,6 +253,8 @@ function dragStart(e) {
 
 function dragMove(e) {
 	if(!dragging) return;
+
+	e = e.originalEvent.touches ? originalEvent.touches[0] : e;
 
 	const { lat0, lon0, flippable } = inv0(
 		(e.pageX - R) / R,
