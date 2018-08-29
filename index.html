@@ -249,6 +249,8 @@ function dragStart(e) {
 
 	dragging = true;
 	e.preventDefault();
+	e.stopPropagation();
+	return(false);
 }
 
 function dragMove(e) {
@@ -269,11 +271,15 @@ function dragMove(e) {
 
 	glon0 = lon0;
 	e.preventDefault();
+	e.stopPropagation();
+	return(false);
 }
 
 function dragEnd(e) {
 	dragging = false;
 	e.preventDefault();
+	e.stopPropagation();
+	return(false);
 }
 
 canvas.onmousedown = dragStart;
