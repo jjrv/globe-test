@@ -222,11 +222,11 @@ let dragLon;
 let glon0;
 
 function dragStart(e) {
-	e = e.touches ? e.touches[0] : e;
+	const coords = e.touches ? e.touches[0] : e;
 
 	const { lat, lon } = inv(
-		(e.pageX - R) / R,
-		(R - e.pageY) / R,
+		(coords.pageX - R) / R,
+		(R - coords.pageY) / R,
 		slat0,
 		clat0,
 		glon0
@@ -254,11 +254,11 @@ function dragStart(e) {
 function dragMove(e) {
 	if(!dragging) return;
 
-	e = e.touches ? e.touches[0] : e;
+	const coords = e.touches ? e.touches[0] : e;
 
 	const { lat0, lon0, flippable } = inv0(
-		(e.pageX - R) / R,
-		(R - e.pageY) / R,
+		(coords.pageX - R) / R,
+		(R - coords.pageY) / R,
 		dragLat * Math.PI / 180,
 		dragLon * Math.PI / 180
 	);
